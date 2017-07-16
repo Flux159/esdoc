@@ -12,6 +12,8 @@ export default class SearchIndexBuilder extends DocBuilder {
     const searchIndex = [];
     const docs = this._find({});
 
+    console.log(docs);
+
     for (const doc of docs) {
       let indexText;
       let url;
