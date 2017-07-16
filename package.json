@@ -1,13 +1,13 @@
 {
   "name": "@flux159/esdoc",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Good Documentation Generator For JavaScript",
   "author": "h13i32maru",
   "homepage": "https://esdoc.org/",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/esdoc/esdoc"
+    "url": "https://github.com/Flux159/esdoc/tree/v2"
   },
   "engines": {
     "node": ">= 6.0.0"
