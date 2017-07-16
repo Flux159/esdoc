@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Flux159/esdoc/tree/v2"
+    "url": "https://github.com/Flux159/esdoc"
   },
   "engines": {
     "node": ">= 6.0.0"
