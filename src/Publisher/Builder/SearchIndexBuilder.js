@@ -1,7 +1,7 @@
 import cheerio from 'cheerio';
 import path from 'path';
 import fs from 'fs-extra';
-import {markdown} from './util.js';
+import { markdown } from './util.js';
 
 import DocBuilder from './DocBuilder.js';
 
@@ -65,23 +65,25 @@ export default class SearchIndexBuilder extends DocBuilder {
     const manualConfig = this._getManualConfig();
 
     manualConfig.forEach((item) => {
-      for (const filePath of item.paths) {
-        const fileName = this._getManualOutputFileName(item, filePath);
-        const html = this._convertMDToHTML(filePath);
-        const $root = cheerio.load(html).root();
-        const h1Count = $root.find('h1').length;
-        const sectionCount = $root.find('h1,h2,h3,h4,h5').length;
+      if (item.paths) {
+        for (const filePath of item.paths) {
+          const fileName = this._getManualOutputFileName(item, filePath);
+          const html = this._convertMDToHTML(filePath);
+          const $root = cheerio.load(html).root();
+          const h1Count = $root.find('h1').length;
+          const sectionCount = $root.find('h1,h2,h3,h4,h5').length;
 
-        $root.find('h1,h2,h3,h4,h5').each((i, el) => {
-          const $el = cheerio(el);
-          const label = $el.text();
-          const indent = `indent-${el.tagName.toLowerCase()}`;
+          $root.find('h1,h2,h3,h4,h5').each((i, el) => {
+            const $el = cheerio(el);
+            const label = $el.text();
+            const indent = `indent-${el.tagName.toLowerCase()}`;
 
-          let link = `${fileName}#${$el.attr('id')}`;
-          if (el.tagName.toLowerCase() === 'h1' && h1Count === 1) link = fileName;
+            let link = `${fileName}#${$el.attr('id')}`;
+            if (el.tagName.toLowerCase() === 'h1' && h1Count === 1) link = fileName;
 
-          toc.push({ label, link, indent, sectionCount });
-        });
+            toc.push({ label, link, indent, sectionCount });
+          });
+        }
       }
     });
 

@@ -84,23 +84,25 @@ class SearchIndexBuilder extends _DocBuilder2.default {
     const manualConfig = this._getManualConfig();
 
     manualConfig.forEach(item => {
-      for (const filePath of item.paths) {
-        const fileName = this._getManualOutputFileName(item, filePath);
-        const html = this._convertMDToHTML(filePath);
-        const $root = _cheerio2.default.load(html).root();
-        const h1Count = $root.find('h1').length;
-        const sectionCount = $root.find('h1,h2,h3,h4,h5').length;
+      if (item.paths) {
+        for (const filePath of item.paths) {
+          const fileName = this._getManualOutputFileName(item, filePath);
+          const html = this._convertMDToHTML(filePath);
+          const $root = _cheerio2.default.load(html).root();
+          const h1Count = $root.find('h1').length;
+          const sectionCount = $root.find('h1,h2,h3,h4,h5').length;
 
-        $root.find('h1,h2,h3,h4,h5').each((i, el) => {
-          const $el = (0, _cheerio2.default)(el);
-          const label = $el.text();
-          const indent = `indent-${el.tagName.toLowerCase()}`;
+          $root.find('h1,h2,h3,h4,h5').each((i, el) => {
+            const $el = (0, _cheerio2.default)(el);
+            const label = $el.text();
+            const indent = `indent-${el.tagName.toLowerCase()}`;
 
-          let link = `${fileName}#${$el.attr('id')}`;
-          if (el.tagName.toLowerCase() === 'h1' && h1Count === 1) link = fileName;
+            let link = `${fileName}#${$el.attr('id')}`;
+            if (el.tagName.toLowerCase() === 'h1' && h1Count === 1) link = fileName;
 
-          toc.push({ label, link, indent, sectionCount });
-        });
+            toc.push({ label, link, indent, sectionCount });
+          });
+        }
       }
     });
 
