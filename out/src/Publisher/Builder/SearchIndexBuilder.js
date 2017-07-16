@@ -166,7 +166,7 @@ class SearchIndexBuilder extends _DocBuilder2.default {
     // Then add it to the search index below w/ proper links, etc.
     const toc = this.buildManualSearchIndex();
     toc.forEach(manualElement => {
-      searchIndex.push([manualElement.label, manualElement.link, manualElement.label, 'manual']);
+      searchIndex.push([manualElement.label, manualElement.link, manualElement.label, 'file']);
     });
 
     searchIndex.sort((a, b) => {
