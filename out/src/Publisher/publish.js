@@ -146,8 +146,6 @@ function publish(values, asts, config) {
     new _CoverageBuilder2.default(data, config).exec(writeCoverage, writeBadge);
   }
 
-  console.log('Should be publishing...');
-
   new _IdentifiersDocBuilder2.default(data, config).exec(writeHTML);
   new _IndexDocBuilder2.default(data, config, _coverage).exec(writeHTML);
   new _ClassDocBuilder2.default(data, config).exec(writeHTML);
