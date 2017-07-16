@@ -4,6 +4,13 @@
 [![Document](https://doc.esdoc.org/github.com/esdoc/esdoc/badge.svg?t=0)](https://doc.esdoc.org/github.com/esdoc/esdoc)
 [![Manual](https://esdoc.org/manual-badge.svg?t=0)](https://doc.esdoc.org/github.com/esdoc/esdoc)
 
+A fork of [ESDoc](https://esdoc.org) that uses Less for some styling fixes and also enables manual searching.
+
+Published via npm as @flux159/esdoc:
+```
+npm install @flux159/esdoc
+```
+
 # ESDoc
 
 ESDoc is a documentation generator for JavaScript.<br/>
