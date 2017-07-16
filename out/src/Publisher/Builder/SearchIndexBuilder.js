@@ -22,7 +22,7 @@ class SearchIndexBuilder extends _DocBuilder2.default {
     const searchIndex = [];
     const docs = this._find({});
 
-    console.log(docs);
+    console.log(JSON.stringify(docs));
 
     for (const doc of docs) {
       let indexText;

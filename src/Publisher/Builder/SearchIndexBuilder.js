@@ -12,7 +12,7 @@ export default class SearchIndexBuilder extends DocBuilder {
     const searchIndex = [];
     const docs = this._find({});
 
-    console.log(docs);
+    console.log(JSON.stringify(docs));
 
     for (const doc of docs) {
       let indexText;
