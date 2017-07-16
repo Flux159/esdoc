@@ -4,13 +4,23 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _DocBuilder = require('./DocBuilder.js');
-
-var _DocBuilder2 = _interopRequireDefault(_DocBuilder);
-
 var _cheerio = require('cheerio');
 
 var _cheerio2 = _interopRequireDefault(_cheerio);
+
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
+var _fsExtra = require('fs-extra');
+
+var _fsExtra2 = _interopRequireDefault(_fsExtra);
+
+var _util = require('./util.js');
+
+var _DocBuilder = require('./DocBuilder.js');
+
+var _DocBuilder2 = _interopRequireDefault(_DocBuilder);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38,6 +48,35 @@ class SearchIndexBuilder extends _DocBuilder2.default {
     if (m.faq) manualConfig.push({ label: 'FAQ', paths: m.faq });
     if (m.changelog) manualConfig.push({ label: 'Changelog', paths: m.changelog });
     return manualConfig;
+  }
+
+  /**
+  * get manual file name.
+  * @param {ManualConfigItem} item - target manual config item.
+  * @param {string} filePath - target manual markdown file path.
+  * @returns {string} file name.
+  * @private
+  */
+  _getManualOutputFileName(item, filePath) {
+    if (item.fileName) return item.fileName;
+
+    const fileName = _path2.default.parse(filePath).name;
+    return `manual/${item.label.toLowerCase()}/${fileName}.html`;
+  }
+
+  /**
+   * convert markdown to html.
+   * if markdown has only one ``h1`` and it's text is ``item.label``, remove the ``h1``.
+   * because duplication ``h1`` in output html.
+   * @param {string} filePath - target.
+   * @returns {string} converted html.
+   * @private
+   */
+  _convertMDToHTML(filePath) {
+    const content = _fsExtra2.default.readFileSync(filePath).toString();
+    const html = (0, _util.markdown)(content);
+    const $root = _cheerio2.default.load(html).root();
+    return $root.html();
   }
 
   buildManualSearchIndex() {

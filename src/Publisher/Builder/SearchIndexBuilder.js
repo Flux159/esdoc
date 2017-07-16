@@ -1,6 +1,9 @@
-import DocBuilder from './DocBuilder.js';
-
 import cheerio from 'cheerio';
+import path from 'path';
+import fs from 'fs-extra';
+import {markdown} from './util.js';
+
+import DocBuilder from './DocBuilder.js';
 
 /**
  * Search index of identifier builder class.
@@ -26,6 +29,35 @@ export default class SearchIndexBuilder extends DocBuilder {
     if (m.faq) manualConfig.push({ label: 'FAQ', paths: m.faq });
     if (m.changelog) manualConfig.push({ label: 'Changelog', paths: m.changelog });
     return manualConfig;
+  }
+
+  /**
+ * get manual file name.
+ * @param {ManualConfigItem} item - target manual config item.
+ * @param {string} filePath - target manual markdown file path.
+ * @returns {string} file name.
+ * @private
+ */
+  _getManualOutputFileName(item, filePath) {
+    if (item.fileName) return item.fileName;
+
+    const fileName = path.parse(filePath).name;
+    return `manual/${item.label.toLowerCase()}/${fileName}.html`;
+  }
+
+  /**
+   * convert markdown to html.
+   * if markdown has only one ``h1`` and it's text is ``item.label``, remove the ``h1``.
+   * because duplication ``h1`` in output html.
+   * @param {string} filePath - target.
+   * @returns {string} converted html.
+   * @private
+   */
+  _convertMDToHTML(filePath) {
+    const content = fs.readFileSync(filePath).toString();
+    const html = markdown(content);
+    const $root = cheerio.load(html).root();
+    return $root.html();
   }
 
   buildManualSearchIndex() {
