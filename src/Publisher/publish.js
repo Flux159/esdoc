@@ -87,10 +87,10 @@ export default function publish(values, asts, config) {
   new FileDocBuilder(data, config).exec(writeHTML);
   new StaticFileBuilder(data, config).exec(copy);
   new LessFileBuilder(data, config).exec();
+  new ManualDocBuilder(data, config).exec(writeHTML, copy, writeBadge);
   new SearchIndexBuilder(data, config).exec(writeHTML);
   new ASTDocBuilder(data, asts, config).exec(writeAST);
   new SourceDocBuilder(data, config, _coverage).exec(writeHTML);
-  new ManualDocBuilder(data, config).exec(writeHTML, copy, writeBadge);
 
   // package.json
   try {
