@@ -151,7 +151,7 @@ export default class SearchIndexBuilder extends DocBuilder {
         manualElement.label,
         manualElement.link,
         manualElement.label,
-        'file'
+        'manual'
       ]);
     });
 

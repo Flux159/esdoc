@@ -38,12 +38,12 @@
     if (text === prevText) return;
     prevText = text;
 
-    var html = {class: [], method: [], member: [], function: [], variable: [], typedef: [], external: [], file: [], test: [], testFile: []};
+    var html = {class: [], method: [], member: [], function: [], variable: [], typedef: [], external: [], file: [], test: [], testFile: [], manual: []};
     var len = searchIndex.length;
     var kind;
     for (var i = 0; i < len; i++) {
       var pair = searchIndex[i];
-      if (pair[0].indexOf(text) !== -1) {
+      if (pair[0].toLowerCase().indexOf(text.toLowerCase()) > -1) {
         kind = pair[3];
         html[kind].push('<li><a href="' + pair[1] + '">' + pair[2] + '</a></li>');
       }
