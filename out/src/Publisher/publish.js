@@ -146,6 +146,8 @@ function publish(values, asts, config) {
     new _CoverageBuilder2.default(data, config).exec(writeCoverage, writeBadge);
   }
 
+  console.log('Should be publishing...');
+
   new _IdentifiersDocBuilder2.default(data, config).exec(writeHTML);
   new _IndexDocBuilder2.default(data, config, _coverage).exec(writeHTML);
   new _ClassDocBuilder2.default(data, config).exec(writeHTML);
@@ -153,10 +155,10 @@ function publish(values, asts, config) {
   new _FileDocBuilder2.default(data, config).exec(writeHTML);
   new _StaticFileBuilder2.default(data, config).exec(copy);
   new _LessFileBuilder2.default(data, config).exec();
+  new _ManualDocBuilder2.default(data, config).exec(writeHTML, copy, writeBadge);
   new _SearchIndexBuilder2.default(data, config).exec(writeHTML);
   new _ASTDocBuilder2.default(data, asts, config).exec(writeAST);
   new _SourceDocBuilder2.default(data, config, _coverage).exec(writeHTML);
-  new _ManualDocBuilder2.default(data, config).exec(writeHTML, copy, writeBadge);
 
   // package.json
   try {

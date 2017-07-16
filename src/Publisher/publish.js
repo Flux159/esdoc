@@ -79,6 +79,8 @@ export default function publish(values, asts, config) {
   if (config.coverage) {
     new CoverageBuilder(data, config).exec(writeCoverage, writeBadge);
   }
+
+  console.log('Should be publishing...');
   
   new IdentifiersDocBuilder(data, config).exec(writeHTML);
   new IndexDocBuilder(data, config, _coverage).exec(writeHTML);
